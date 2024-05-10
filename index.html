@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Pagination</title>
+<style>
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+  }
+  .pagination li {
+    margin: 0 5px;
+  }
+  .pagination li a {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    border: 1px solid #fff563;
+    color: #333;
+  }
+  .pagination li a:hover {
+    background-color: #f4ff60;
+  }
+  .pagination .active a {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .content {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Simple Pagination Example</h1>
+  <ul class="pagination">
+    <li><a href="javascript:void(0);" onclick="changePage(-1)">&laquo; Previous</a></li>
+    <li class="active"><a href="javascript:void(0);" onclick="changePage(1)">1</a></li>
+    <li><a href="javascript:void(0);" onclick="changePage(2)">2</a></li>
+    <li><a href="javascript:void(0);" onclick="changePage(3)">3</a></li>
+    <li><a href="javascript:void(0);" onclick="changePage(4)">4</a></li>
+    <li><a href="javascript:void(0);" onclick="changePage(5)">5</a></li>
+    <li><a href="javascript:void(0);" onclick="changePage(2)">&raquo; Next</a></li>
+  </ul>
+
+  <div class="content" id="page1">
+    <h2>Page 1</h2>
+    <p>This is dummy content for page 1.</p>
+  </div>
+  
+  <div class="content" id="page2" style="display: none;">
+    <h2>Page 2</h2>
+    <p>This is dummy content for page 2.</p>
+  </div>
+  
+  <div class="content" id="page3" style="display: none;">
+    <h2>Page 3</h2>
+    <p>This is dummy content for page 3.</p>
+  </div>
+  
+  <div class="content" id="page4" style="display: none;">
+    <h2>Page 4</h2>
+    <p>This is dummy content for page 4.</p>
+  </div>
+  
+  <div class="content" id="page5" style="display: none;">
+    <h2>Page 5</h2>
+    <p>This is dummy content for page 5.</p>
+  </div>
+</div>
+
+<script>
+function changePage(pageNumber) {
+    var pages = document.querySelectorAll('.content');
+    var paginationItems = document.querySelectorAll('.pagination li');
+    var activePage = document.querySelector('.pagination li.active');
+    var currentPage = Array.prototype.indexOf.call(paginationItems, activePage);
+    
+    if (pageNumber === -1) { 
+        if (currentPage > 1) {
+            pageNumber = currentPage - 1;
+        } else {
+            return;
+        }
+    } else if (pageNumber === 0) { 
+        if (currentPage < pages.length - 2) {
+            pageNumber = currentPage + 1;
+        } else {
+            return;
+        }
+    }
+    
+    for (var i = 0; i < pages.length; i++) {
+        pages[i].style.display = 'none';
+        paginationItems[i].classList.remove('active');
+    }
+    
+    pages[pageNumber - 1].style.display = 'block';
+    paginationItems[pageNumber].classList.add('active');
+}
+</script>
+
+</body>
+</html>
